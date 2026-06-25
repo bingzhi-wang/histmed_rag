@@ -1,0 +1,492 @@
+    1  docker compose pull
+    2  docker compose up
+    3  docker compose up --build
+    4  docker compose up --build
+    5  docker compose -f docker-compose.yml up --build
+    6  ollama run llama2
+    7  sudo gpt4all-installer-linux.run 
+    8  chmod +x gpt4all-installer-linux.run 
+    9  ./gpt4all-installer-linux.run 
+   10  start chatting
+   11  vs code
+   12  vscode
+   13  /bin/python3 /home/bwang/.vscode/extensions/ms-python.python-2024.12.2-linux-x64/python_files/printEnvVariablesToFile.py /home/bwang/.vscode/extensions/ms-python.python-2024.12.2-linux-x64/python_files/deactivate/bash/envVars.txt
+   14  python --version
+   15  python -m venv fpbase
+   16  fpbase\Scripts\activate
+   17  fpbase\bin\activate
+   18  fpbase/bin/activate
+   19  python --version
+   20  which python
+   21  fpbase/bin/activate
+   22  fpbase\bin\activate
+   23  fpbase
+   24  /home/bwang/Documents/fp-base/fpbase/bin/python "/home/bwang/Documents/fp-base/fpbase/import requests.py"
+   25  /home/bwang/Documents/fp-base/fpbase/bin/python "/home/bwang/Documents/fp-base/fpbase/import requests.py"
+   26  pip install requests
+   27  pip install requests
+   28  /home/bwang/Documents/fp-base/fpbase/bin/python "/home/bwang/Documents/fp-base/fpbase/import requests.py"
+   29  /bin/python3 /home/bwang/.vscode/extensions/ms-python.python-2024.12.2-linux-x64/python_files/printEnvVariablesToFile.py /home/bwang/.vscode/extensions/ms-python.python-2024.12.2-linux-x64/python_files/deactivate/bash/envVars.txt
+   30  killall snap-store
+   31  snap remove snap-store 
+   32  snap install snap-store
+   33  lspci | grep Network
+   34  sudo apt update
+   35  sudo apt update
+   36  sudo apt update
+   37  sudo apt update
+   38  lsb_release -a
+   39  sudo apt update
+   40  sudo apt-get
+   41  sudo apt get install synaptic
+   42  sudo apt-get install synaptic
+   43  sudo apt install synaptic
+   44  apt list
+   45  sudo apt-get update
+   46  sudo apt-get install synaptic
+   47  sudo apt update
+   48  sudoapt install synaptic 
+   49  sudo apt install synaptic
+   50  sudo su
+   51  sudo apt install synaptic
+   52  lspci -nn | grep -i 'network\|ethernet' -A3
+   53  lspci | grep -i wireless
+   54  sudo lshw -class network
+   55  sudo lshw -C network
+   56  lspci -vvnn | grep Network
+   57  lspci -vvnn | grep Network
+   58  sudo lshw -C network
+   59  sudo lshw -C network
+   60  sudo lshw -C network
+   61  wireless-tools
+   62  iwlist
+   63  iwlist wlan0
+   64  iwlist wlan0 scan
+   65  lshw -C network
+   66  lspci
+   67  lsusb
+   68  lsusb
+   69  nano /boot/grub/grub.cfg 
+   70  nano /boot/grub/grub.cfg 
+   71  set nu
+   72  nano /boot/grub/grub.cfg 
+   73  nano /boot/grub/grub.cfg 
+   74  nano /etc/default/grub
+   75  sudo nano /etc/default/grub
+   76  sudo nano /etc/default/grub
+   77  update-grub
+   78  sudo update-grub
+   79  lsusb
+   80  sudo apt-get update
+   81  sudo apt install -y build-essential dkms git
+   82  ls
+   83  cd wifi/
+   84  git clone https://github.com/morrownr/8821au-20210708.git
+   85  ls\
+   86  ls
+   87  cd 8821au-20210708/\
+   88  ls
+   89  cd 8821au-20210708/
+   90  ls
+   91  sudo ./install-driver.sh
+   92  sudo dpkg -r .steam/
+   93  nano grub
+   94  sudo nano grub
+   95  sudo update-grub
+   96  bluetoothctl
+   97  ls
+   98  cd ~/
+   99  ls
+  100  mkdir ~/bin
+  101  touch ~/bin/btautoconnect.sh
+  102  gedit ~/bin/btautoconnect.sh
+  103  chmod +x ~/bin/btautoconnect.sh
+  104  touch ~/.config/autostart/btautoconnect.desktop
+  105  cd .config
+  106  ls
+  107  cd ~/.config/autostart/
+  108  mkdir ~/.config/autostart/
+  109  touch ~/.config/autostart/btautoconnect.desktop
+  110  gedit ~/.config/autostart/btautoconnect.desktop
+  111  sudo apt update
+  112  sudo apt install -y git cmake build-essential libcurl4-openssl-dev
+  113  sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+  114  sudo systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target
+  115  pip install huggingface-hub --break-system-packages
+  116  huggingface-cli download bartowski/DeepSeek-V4-Flash-GGUF   DeepSeek-V4-Flash-Q4_K_M.gguf   --local-dir ~/models/deepseek-v4-flash
+  117  huggingface-cli download Preyazz/DeepSeek-V4-Flash-GGUF   DeepSeek-V4-Flash-Q4_K_M.gguf   --local-dir ~/models/deepseek-v4-flash
+  118  huggingface-cli download unsloth/GLM-4.7-Flash-GGUF   GLM-4.7-Flash-Q4_K_M.gguf   --local-dir ~/models/glm-4.7-flash
+  119  nohup huggingface-cli download unsloth/GLM-4.7-Flash-GGUF   GLM-4.7-Flash-Q4_K_M.gguf   --local-dir ~/models/glm-4.7-flash   > ~/models/download.log 2>&1 &
+  120  tail -f ~/models/download.log
+  121  lspci | grep -i nvidia
+  122  sudo apt update
+  123  sudo apt install -y git cmake build-essential libcurl4-openssl-dev
+  124  git clone https://github.com/ggml-org/llama.cpp
+  125  cd llama.cpp
+  126  cmake -B build -DGGML_CUDA=ON
+  127  which nvcc
+  128  nvcc --version
+  129  cd ..
+  130  sudo apt install nvidia-cuda-toolkit
+  131  nvcc --version
+  132  cmake -B build -DGGML_CUDA=ON
+  133  ls /usr/local/cuda*
+  134  nvidia-smi
+  135  dpkg -l | grep nvidia
+  136  ubuntu-drivers devices
+  137  sudo ubuntu-drivers autoinstall
+  138  sudo reboot
+  139  cd ~/llama.cpp
+  140  rm -rf build
+  141  rm -rf build
+  142  cd ..
+  143  npm install -g @anthropic-ai/claude-code
+  144  sudo apt install npm
+  145  npm install -g @anthropic-ai/claude-code
+  146  sudo apt install -y nodejs npm
+  147  curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
+  148  source ~/.bashrc
+  149  [200~source ~/.bashrc
+  150  ~source ~/.bashrc
+  151  nvm install 22
+  152  nvm use 22
+  153  node --version 
+  154  npm --version
+  155  npm install -g @anthropic-ai/claude-code
+  156  mkdir -p ~/.claude
+  157  cat > ~/.claude/settings.json << 'EOF'
+  158  {
+  159    "env": {
+  160      "ANTHROPIC_BASE_URL": "http://127.0.0.1:8080",
+  161      "ANTHROPIC_AUTH_TOKEN": "local",
+  162      "CLAUDE_CODE_ATTRIBUTION_HEADER": "0"
+  163    }
+  164  }
+  165  EOF
+  166  mkdir -p ~/your-project
+  167  cd ~/your-project
+  168  claude --model glm-4.7-flash
+  169  claude --model glm-4.7-flash
+  170  nano settings.json 
+  171  /bin/python3 /home/bwang/.vscode/extensions/ms-python.python-2024.12.2-linux-x64/python_files/printEnvVariablesToFile.py /home/bwang/.vscode/extensions/ms-python.python-2024.12.2-linux-x64/python_files/deactivate/bash/envVars.txt
+  172  ./start.sh
+  173  ./start.sh
+  174  ./start.sh
+  175  claude --model glm-4.7-flash
+  176  claude --dangerously-skip-permissions
+  177  claude --model glm-4.7-flash --dangerously-skip-permissions
+  178  ~/llama.cpp/build/bin/llama-server   --model ~/models/glm-4.7-flash/GLM-4.7-Flash-Q3_K_M.gguf   --ctx-size 32768   --n-gpu-layers 999   --host 127.0.0.1   --port 8080
+  179  ~/llama.cpp/build/bin/llama-server   --model ~/models/glm-4.7-flash/GLM-4.7-Flash-Q4_K_M.gguf   --ctx-size 32768   --n-gpu-layers 35   --host 127.0.0.1   --port 8080
+  180  ~/llama.cpp/build/bin/llama-server   --model ~/models/glm-4.7-flash/GLM-4.7-Flash-Q4_K_M.gguf   --ctx-size 32768   --n-gpu-layers 20   --host 127.0.0.1   --port 8080
+  181  ~/llama.cpp/build/bin/llama-server   --model ~/models/glm-4.7-flash/GLM-4.7-Flash-Q4_K_M.gguf   --ctx-size 32768   --cache-type-k q8_0   --cache-type-v q8_0   --n-threads 8   --n-gpu-layers 999   --host 127.0.0.1   --port 8080
+  182  ~/llama.cpp/build/bin/llama-server   --model ~/models/glm-4.7-flash/GLM-4.7-Flash-Q4_K_M.gguf   --ctx-size 32768   --cache-type-k q8_0   --cache-type-v q8_0    --n-gpu-layers 999   --host 127.0.0.1   --port 8080
+  183  ~/llama.cpp/build/bin/llama-server   --model ~/models/glm-4.7-flash/GLM-4.7-Flash-Q4_K_M.gguf   --ctx-size 32768   --cache-type-k q8_0   --cache-type-v q8_0    --n-gpu-layers 20   --host 127.0.0.1   --port 8080
+  184  ~/llama.cpp/build/bin/llama-server   --model ~/models/glm-4.7-flash/GLM-4.7-Flash-Q4_K_M.gguf   --ctx-size 32768   --cache-type-k q8_0   --cache-type-v q8_0    --n-gpu-layers 20   --host 127.0.0.1   --port 8080
+  185  find . -type f | sort
+  186  claude --model glm-4.7-flash --dangerously-skip-permissions
+  187  cat > ~/munich-housing/TASKS.md << 'EOF'
+  188  ## Task Queue
+  189  [ ] 1. Create config.yaml + requirements.txt
+  190  [ ] 2. Create scraper/__init__.py + scraper/sources/__init__.py (empty inits)
+  191  [ ] 3. Create scraper/parser.py (schema + parse_listing function only)
+  192  [ ] 4. Create scraper/sources/immoscout.py (ImmoScoutScraper class only)
+  193  [ ] 5. Create scraper/sources/immowelt.py (ImmoweltScraper class only)
+  194  [ ] 6. Create scraper/sources/wggesucht.py (WGGesuchtScraper class only)
+  195  [ ] 7. Create scraper/deduplicator.py
+  196  [ ] 8. Create reporter/stats.py
+  197  [ ] 9. Create reporter/excel.py — Sheet 1 Listings only
+  198  [  ] 10. Create reporter/excel.py — Sheets 2-4 (stats, district, type)
+  199  [ ] 11. Create run.py
+  200  [ ] 12. Integration test — run.py with synthetic data
+  201  [ ] 13. Fix all errors until run.py produces valid .xlsx
+  202  EOF
+  203  mkdir munich-housing
+  204  cat > ~/munich-housing/TASKS.md << 'EOF'
+  205  ## Task Queue
+  206  [ ] 1. Create config.yaml + requirements.txt
+  207  [ ] 2. Create scraper/__init__.py + scraper/sources/__init__.py (empty inits)
+  208  [ ] 3. Create scraper/parser.py (schema + parse_listing function only)
+  209  [ ] 4. Create scraper/sources/immoscout.py (ImmoScoutScraper class only)
+  210  [ ] 5. Create scraper/sources/immowelt.py (ImmoweltScraper class only)
+  211  [ ] 6. Create scraper/sources/wggesucht.py (WGGesuchtScraper class only)
+  212  [ ] 7. Create scraper/deduplicator.py
+  213  [ ] 8. Create reporter/stats.py
+  214  [ ] 9. Create reporter/excel.py — Sheet 1 Listings only
+  215  [  ] 10. Create reporter/excel.py — Sheets 2-4 (stats, district, type)
+  216  [ ] 11. Create run.py
+  217  [ ] 12. Integration test — run.py with synthetic data
+  218  [ ] 13. Fix all errors until run.py produces valid .xlsx
+  219  EOF
+  220  cat > ~/munich-housing/CONTEXT.md << 'EOF'
+  221  ## Project: Munich Housing Scraper
+  222  ### Key decisions (do not change these)
+  223  - All scrapers return List[dict] conforming to LISTING_SCHEMA in parser.py
+  224  - Config loaded via config.yaml using PyYAML
+  225  - Cache stored in data/raw/{source}_{date}.json
+  226  - Output saved to output/munich_housing_{timestamp}.xlsx
+  227  - All Excel calculations use formulas, not hardcoded Python values
+  228  - Retry logic uses tenacity (3 attempts, 5s wait)
+  229  - Progress display uses rich.progress
+  230  ### Field names (use exactly these, no variations)
+  231  rent_cold_eur, rent_warm_eur, additional_costs_eur,
+  232  price_per_sqm, size_sqm, listing_id, scraped_at,
+  233  property_type, provider_type, available_from
+  234  ### Files completed so far
+  235  [update this after each session]
+  236  - config.yaml ✅
+  237  - scraper/parser.py ✅
+  238  EOF
+  239  nano settings.json 
+  240  nano settings.json 
+  241  huggingface-cli download unsloth/GLM-4.7-Flash-GGUF   GLM-4.7-Flash-Q3_K_M.gguf   --local-dir ~/models/glm-4.7-flash
+  242  systemctl status sleep.target
+  243  sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+  244  systemctl status sleep.target
+  245  tmux new -s claude
+  246  sudo apt  install tmux
+  247  tmux new -s claude
+  248  sudo apt install -y micro 
+  249  sudo apt install git-all
+  250  systemctl status sleep.target
+  251  tmux new -s claude
+  252  claude --model glm-4.7-flash --dangerously-skip-permissions
+  253  claude --model glm-4.7-flash --dangerously-skip-permissions
+  254  claude --model glm-4.7-flash --dangerously-skip-permissions
+  255  claude --model glm-4.7-flash --dangerously-skip-permissions
+  256  claude --model glm-4.7-flash --dangerously-skip-permissions
+  257  sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+  258  gsettings set org.gnome.desktop.session idle-delay 0
+  259  gsettings set org.gnome.desktop.session idle-delay 300
+  260  ~/llama.cpp/build/bin/llama-server   --model ~/models/glm-4.7-flash/GLM-4.7-Flash-Q4_K_M.gguf   --ctx-size 62768   --cache-type-k q8_0   --cache-type-v q8_0    --n-gpu-layers 20   --host 127.0.0.1   --port 8080
+  261  [200~pkill llama-server~
+  262  pkill llama-server
+  263  ~/llama.cpp/build/bin/llama-server   --model ~/models/glm-4.7-flash/GLM-4.7-Flash-Q4_K_M.gguf   --ctx-size 62768   --cache-type-k q8_0   --cache-type-v q8_0    --n-gpu-layers 20   --host 127.0.0.1   --port 8080
+  264  ~/llama.cpp/build/bin/llama-server   --model ~/models/glm-4.7-flash/GLM-4.7-Flash-Q4_K_M.gguf   --ctx-size 62768   --cache-type-k q8_0   --cache-type-v q8_0    --n-gpu-layers 20   --host 127.0.0.1   --port 8080
+  265  ~/llama.cpp/build/bin/llama-server   --model ~/models/glm-4.7-flash/GLM-4.7-Flash-Q4_K_M.gguf   --ctx-size 62768   --cache-type-k q8_0   --cache-type-v q8_0    --n-gpu-layers 20   --host 127.0.0.1   --port 8080
+  266  ~/llama.cpp/build/bin/llama-server   --model ~/models/glm-4.7-flash/GLM-4.7-Flash-Q3_K_M.gguf   --ctx-size 62768   --cache-type-k q8_0   --cache-type-v q8_0    --n-gpu-layers 30   --host 127.0.0.1   --port 8080
+  267  pkill llama-server
+  268  ~/llama.cpp/build/bin/llama-server   --model ~/models/glm-4.7-flash/GLM-4.7-Flash-Q4_K_M.gguf   --ctx-size 62768   --cache-type-k q8_0   --cache-type-v q8_0    --n-gpu-layers 20   --host 127.0.0.1   --port 8080
+  269  pkill llama-server
+  270  pip install -r requirements.txt 
+  271  python run.py
+  272  python run.py --source immoscout
+  273  huggingface-cli download unsloth/GLM-4.7-Flash-GGUF   GLM-4.7-Flash-Q3_K_M.gguf   --local-dir ~/models/glm-4.7-flash
+  274  python run.py
+  275  python run.py
+  276  python run.py
+  277  python run.py
+  278  python run.py
+  279  nano ~/.local/share/applications/YourApp.desktop
+  280  chmod +x ~/.local/share/applications/YourApp.desktop
+  281  cd ~
+  282  sudo apt install libfuse2t64
+  283  sudo apt install libfuse2
+  284  mkdir -p ~/Applications
+  285  sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+  286  claude --model glm-4.7-flash --dangerously-skip-permissions
+  287  claude --model glm-4.7-flash --dangerously-skip-permissions
+  288  claude --model glm-4.7-flash --dangerously-skip-permissions
+  289  claude --model glm-4.7-flash --dangerously-skip-permissions
+  290  claude --resume 1187e3f9-e6b3-4b5b-993f-1a8982d9664d
+  291  ~/llama.cpp/build/bin/llama-server   --model ~/models/glm-4.7-flash/GLM-4.7-Flash-Q3_K_M.gguf   --ctx-size 65536   --n-gpu-layers 999   --cache-type-k q8_0   --cache-type-v q8_0   --port 8080 &
+  292  ~/llama.cpp/build/bin/llama-server   --model ~/models/glm-4.7-flash/GLM-4.7-Flash-Q3_K_M.gguf   --ctx-size 65536   --n-gpu-layers 35   --cache-type-k q8_0   --cache-type-v q8_0   --port 8080 &
+  293  ~/llama.cpp/build/bin/llama-server   --model ~/models/glm-4.7-flash/GLM-4.7-Flash-Q3_K_M.gguf   --ctx-size 65536   --n-gpu-layers 40   --cache-type-k q8_0   --cache-type-v q8_0   --port 8080 &
+  294  pkill llama-server
+  295  ~/llama.cpp/build/bin/llama-server   --model ~/models/glm-4.7-flash/GLM-4.7-Flash-Q3_K_M.gguf   --ctx-size 65536   --n-gpu-layers 40   --cache-type-k q8_0   --cache-type-v q8_0   --port 8080 &
+  296  pkill llama-server
+  297  ~/llama.cpp/build/bin/llama-server   --model ~/models/glm-4.7-flash/GLM-4.7-Flash-Q4_K_M.gguf   --ctx-size 62768   --cache-type-k q8_0   --cache-type-v q8_0    --n-gpu-layers 20   --host 127.0.0.1   --port 8080
+  298  ~/llama.cpp/build/bin/llama-server   --model ~/models/glm-4.7-flash/GLM-4.7-Flash-Q4_K_M.gguf   --ctx-size 85768   --cache-type-k q8_0   --cache-type-v q8_0    --n-gpu-layers 20   --host 127.0.0.1   --port 8080
+  299  ~/llama.cpp/build/bin/llama-server   --model ~/models/glm-4.7-flash/GLM-4.7-Flash-Q4_K_M.gguf   --ctx-size 135768   --cache-type-k q8_0   --cache-type-v q8_0    --n-gpu-layers 20   --host 127.0.0.1   --port 8080
+  300  sudo apt update && sudo apt install kdeconnect -y
+  301  hostname -I
+  302  sudo ufw allow 1714:1764/udp
+  303  sudo ufw allow 1714:1764/tcp
+  304  sudo ufw reload
+  305  python run.py
+  306  python run.py --no-cache
+  307  python run.py --no-cache
+  308  python run.py --no-cache
+  309  ~/llama.cpp/build/bin/llama-server   --model ~/models/glm-4.7-flash/GLM-4.7-Flash-Q4_K_M.gguf   --ctx-size 62768   --cache-type-k q8_0   --cache-type-v q8_0    --n-gpu-layers 20   --host 127.0.0.1   --port 8080
+  310  ~/llama.cpp/build/bin/llama-server   --model ~/models/glm-4.7-flash/GLM-4.7-Flash-Q4_K_M.gguf   --ctx-size 132768   --cache-type-k q8_0   --cache-type-v q8_0    --n-gpu-layers 20   --host 127.0.0.1   --port 8080
+  311  pkill llama-server
+  312  ~/llama.cpp/build/bin/llama-server   --model ~/models/glm-4.7-flash/GLM-4.7-Flash-Q4_K_M.gguf   --ctx-size 132768   --cache-type-k q8_0   --cache-type-v q8_0    --n-gpu-layers 20   --host 127.0.0.1   --port 8080
+  313  pkill llama-server
+  314  ~/llama.cpp/build/bin/llama-server   --model ~/models/glm-4.7-flash/GLM-4.7-Flash-Q4_K_M.gguf   --ctx-size 62768   --cache-type-k q8_0   --cache-type-v q8_0    --n-gpu-layers 20   --host 127.0.0.1   --port 8080
+  315  pkill llama-server
+  316  ~/llama.cpp/build/bin/llama-server   --model ~/models/glm-4.7-flash/GLM-4.7-Flash-Q4_K_M.gguf   --ctx-size 62768   --cache-type-k q8_0   --cache-type-v q8_0    --n-gpu-layers 20   --host 127.0.0.1   --port 8080
+  317  claude --model glm-4.7-flash --dangerously-skip-permissions
+  318  claude --model glm-4.7-flash --dangerously-skip-permissions
+  319  claude --model glm-4.7-flash --dangerously-skip-permissions
+  320  claude --model glm-4.7-flash --dangerously-skip-permissions
+  321  claude --resume 887b6327-f881-45ef-86a9-8f1bd3744126
+  322  python run.py --no-cache
+  323  ~/llama.cpp/build/bin/llama-server   --model ~/models/glm-4.7-flash/GLM-4.7-Flash-Q4_K_M.gguf   --ctx-size 62768   --n-gpu-layers 20   --cache-type-k q8_0   --cache-type-v q8_0   --host 127.0.0.1   --port 8080
+  324  pkill llama-server
+  325  claude --model glm-4.7-flash --dangerously-skip-permissions
+  326  sudo apt update && sudo apt upgrade -y
+  327  sudo apt install -y build-essential git curl wget unzip
+  328  sudo apt install -y python3.11 python3.11-venv python3.11-dev python3-pip
+  329  sudo apt install -y default-jdk
+  330  sudo systemctl start docker
+  331  sudo systemctl enable docker
+  332  sudo apt install -y docker.io docker-compose
+  333  sudo systemctl enable docker
+  334  sudo systemctl start docker
+  335  sudo usermod -aG docker $USER
+  336  pip install   langchain==0.2.16   langchain-community==0.2.16   langgraph==0.2.27   llama-index==0.10.65   llama-index-vector-stores-qdrant==0.2.14   sentence-transformers==3.0.1   FlagEmbedding==1.2.11   qdrant-client==1.11.0   elasticsearch==8.15.0   rank-bm25==0.2.2   ollama==0.3.3   transformers==4.44.2   torch==2.4.0   pydantic==2.8.2   python-dotenv==1.0.1   lxml==5.3.0   beautifulsoup4==4.12.3   opencc-python-reimplemented==0.1.7   tqdm==4.66.5   rich==13.8.0   fastapi==0.115.0   uvicorn==0.30.6
+  337  pip install "triton>=2.0.0,<3.0.0" --no-deps
+  338  nano download_suwen.py
+  339  cd corpus/raw/suwen/
+  340  nano suwen_full.txt
+  341  python '/home/bwang/histmed_rag/scripts/download_suwen.py' 
+  342  cd ~/histmed_rag/corpus/raw/perinouson
+  343  python3.11 --version 
+  344  docker --version
+  345  java -version 
+  346  mkdir -p ~/histmed_rag
+  347  cd ~/histmed_rag/
+  348  mkdir -p corpus/raw/suwen 
+  349  mkdir -p corpus/raw/perinouson 
+  350  mkdir -p corpus/raw/causaecurae  
+  351  mkdir -p corpus/processed   
+  352  mkdir -p corpus/metadata 
+  353  mkdir -p models/embeddings  
+  354  mkdir -p models/reranker           # Downloaded reranker model
+  355  mkdir -p config                    # YAML/JSON config files
+  356  mkdir -p scripts                   # Python scripts
+  357  mkdir -p agents                    # LangGraph agent code
+  358  mkdir -p docker                    # Docker compose files
+  359  mkdir -p logs                      # Log output
+  360  find ~/histmed_rag -type d | sort
+  361  python3.11 -m venv venv
+  362  source venv/bin/activate
+  363  pip install --upgrade pip setuptools wheel
+  364  pip install   langchain==0.2.16   langchain-community==0.2.16   langgraph==0.2.27   llama-index==0.10.65   llama-index-vector-stores-qdrant==0.2.14   sentence-transformers==3.0.1   FlagEmbedding==1.2.11   qdrant-client==1.11.0   elasticsearch==8.15.0   rank-bm25==0.2.2   ollama==0.3.3   transformers==4.44.2   torch==2.4.0   pydantic==2.8.2   python-dotenv==1.0.1   lxml==5.3.0   beautifulsoup4==4.12.3   opencc-python-reimplemented==0.1.7   tqdm==4.66.5   rich==13.8.0   fastapi==0.115.0   uvicorn==0.30.6
+  365  pip install   langchain==0.2.16   langchain-community==0.2.16   langgraph==0.2.27   llama-index==0.10.65   llama-index-vector-stores-qdrant==0.2.14   sentence-transformers==3.0.1   FlagEmbedding==1.2.11   qdrant-client==1.11.0   elasticsearch==8.15.0   rank-bm25==0.2.2   ollama==0.3.3   transformers==4.44.2   torch==2.4.0 --index-url https://download.pytorch.org/whl/cu121  pydantic==2.8.2   python-dotenv==1.0.1   lxml==5.3.0   beautifulsoup4==4.12.3   opencc-python-reimplemented==0.1.7   tqdm==4.66.5   rich==13.8.0   fastapi==0.115.0   uvicorn==0.30.6
+  366  pip install   langchain==0.2.16   langchain-community==0.2.16   langgraph==0.2.27   llama-index==0.10.65   llama-index-vector-stores-qdrant==0.2.14   sentence-transformers==3.0.1   FlagEmbedding==1.2.11   qdrant-client==1.11.0   elasticsearch==8.15.0   rank-bm25==0.2.2   ollama==0.3.3   transformers==4.44.2   torch==2.4.0 --index-url https://download.pytorch.org/whl/cu121  pydantic==2.8.2   python-dotenv==1.0.1   lxml==5.3.0   beautifulsoup4==4.12.3   opencc-python-reimplemented==0.1.7   tqdm==4.66.5   rich==13.8.0   fastapi==0.115.0   uvicorn==0.30.6
+  367  pip install   langchain==0.2.16   langchain-community==0.2.16   langgraph==0.2.27   llama-index==0.10.65   llama-index-vector-stores-qdrant==0.2.14   sentence-transformers==3.0.1   FlagEmbedding==1.2.11   qdrant-client==1.11.0   elasticsearch==8.15.0   rank-bm25==0.2.2   ollama==0.3.3   transformers==4.44.2   torch==2.4.0   pydantic==2.8.2   python-dotenv==1.0.1   lxml==5.3.0   beautifulsoup4==4.12.3   opencc-python-reimplemented==0.1.7   tqdm==4.66.5   rich==13.8.0   fastapi==0.115.0   uvicorn==0.30.6
+  368  pip install   langchain==0.2.16   langchain-community==0.2.16   langgraph==0.2.27   llama-index==0.10.65   llama-index-vector-stores-qdrant==0.2.14   sentence-transformers==3.0.1   FlagEmbedding==1.2.11   qdrant-client==1.11.0   elasticsearch==8.15.0   rank-bm25==0.2.2   ollama==0.3.3   transformers==4.44.2   torch==2.4.0 --index-url https://download.pytorch.org/whl/cu121.  pydantic==2.8.2   python-dotenv==1.0.1   lxml==5.3.0   beautifulsoup4==4.12.3   opencc-python-reimplemented==0.1.7   tqdm==4.66.5   rich==13.8.0   fastapi==0.115.0   uvicorn==0.30.6
+  369  pip install   langchain==0.2.16   langchain-community==0.2.16   langgraph==0.2.27   llama-index==0.10.65   llama-index-vector-stores-qdrant==0.2.14   sentence-transformers==3.0.1   FlagEmbedding==1.2.11   qdrant-client==1.11.0   elasticsearch==8.15.0   rank-bm25==0.2.2   ollama==0.3.3   transformers==4.44.2   torch==2.4.0 --index-url ‘https://download.pytorch.org/whl/cu121’  pydantic==2.8.2   python-dotenv==1.0.1   lxml==5.3.0   beautifulsoup4==4.12.3   opencc-python-reimplemented==0.1.7   tqdm==4.66.5   rich==13.8.0   fastapi==0.115.0   uvicorn==0.30.6
+  370  pip install torch==2.4.0 --index-url https://download.pytorch.org/whl/cu121
+  371  pip install   langchain==0.2.16   langchain-community==0.2.16   langgraph==0.2.27   llama-index==0.10.65   llama-index-vector-stores-qdrant==0.2.14   sentence-transformers==3.0.1   FlagEmbedding==1.2.11   qdrant-client==1.11.0   elasticsearch==8.15.0   rank-bm25==0.2.2   ollama==0.3.3   transformers==4.44.2   torch==2.4.0   pydantic==2.8.2   python-dotenv==1.0.1   lxml==5.3.0   beautifulsoup4==4.12.3   opencc-python-reimplemented==0.1.7   tqdm==4.66.5   rich==13.8.0   fastapi==0.115.0   uvicorn==0.30.6
+  372  pip freeze > requirements.txt
+  373  cd ~/histmed_rag/corpus/raw/perinouson
+  374  wget -O perinouson_book1.xml   'https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0627/tlg006/tlg0627.tlg006.perseus-grc2.xml'
+  375  wget -O perinouson_eng.xml   'https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0627/tlg006/tlg0627.tlg006.perseus-eng2.xml'
+  376  ls -lh *.xml
+  377  wget -O perinouson_eng.xml   'https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0627/tlg006/tlg0627.tlg006.perseus-eng3.xml'
+  378  cd ~/histmed_rag/corpus/raw/causaecurae
+  379  wget -O causaecurae_wikisource.xml   'https://la.wikisource.org/wiki/Special:Export/Causae_et_Curae'
+  380  nano docker/docker-compose.yml
+  381  sudo systemctl status docker
+  382  ls -la /var/run/docker.sock
+  383  cat ~/.docker/config.json
+  384  docker context ls
+  385  docker context use default
+  386  docker context ls
+  387  ls -la /var/run/docker.sock
+  388  cat ~/.docker/config.json
+  389  sudo apt remove docker-desktop
+  390  sudo apt purge docker-desktop
+  391  rm -r ~/.docker/desktop
+  392  sudo rm -f /usr/local/bin/com.docker.cli
+  393  cat ~/.docker/config.json
+  394  nano ~/.docker/config.json
+  395  dpkg -l | grep docker
+  396  docker ps | grep elasticsearch
+  397  docker ps -a | grep elasticsearch
+  398  docker start elasticsearch
+  399  docker start histmed_elasticsearch
+  400  docker logs histmed_elasticsearch
+  401  sudo chown -R 1000:1000 ./es_storage
+  402  nano scripts/preprocess_suwen.py
+  403  source venv/bin/activate
+  404  python '/home/bwang/histmed_rag/scripts/download_suwen.py' 
+  405  python '/home/bwang/histmed_rag/scripts/download_suwen.py' 
+  406  python '/home/bwang/histmed_rag/scripts/download_suwen.py' 
+  407  python '/home/bwang/histmed_rag/scripts/download_suwen.py' 
+  408  python '/home/bwang/histmed_rag/scripts/download_suwen.py' 
+  409  python '/home/bwang/histmed_rag/scripts/download_suwen.py' 
+  410  python '/home/bwang/histmed_rag/scripts/download_suwen.py' 
+  411  python '/home/bwang/histmed_rag/scripts/download_suwen.py' 
+  412  python '/home/bwang/histmed_rag/scripts/download_suwen.py' 
+  413  python '/home/bwang/histmed_rag/scripts/download_suwen.py' 
+  414  python '/home/bwang/histmed_rag/scripts/download_suwen.py' 
+  415  python '/home/bwang/histmed_rag/scripts/download_suwen.py' 
+  416  python '/home/bwang/histmed_rag/scripts/download_suwen.py' 
+  417  python '/home/bwang/histmed_rag/scripts/download_suwen.py' 
+  418  python '/home/bwang/histmed_rag/scripts/download_suwen.py' 
+  419  python '/home/bwang/histmed_rag/scripts/download_suwen.py' 
+  420  python '/home/bwang/histmed_rag/scripts/download_suwen.py' 
+  421  python '/home/bwang/histmed_rag/scripts/download_suwen.py' 
+  422  python '/home/bwang/histmed_rag/scripts/download_suwen.py' 
+  423  python '/home/bwang/histmed_rag/scripts/download_suwen.py' 
+  424  python '/home/bwang/histmed_rag/scripts/download_suwen.py' 
+  425  python '/home/bwang/histmed_rag/scripts/download_suwen.py' 
+  426  python '/home/bwang/histmed_rag/scripts/download_suwen.py' 
+  427  python '/home/bwang/histmed_rag/scripts/preprocess_suwen.py' 
+  428  nano scripts/preprocess_perinouson.py
+  429  python '/home/bwang/histmed_rag/scripts/preprocess_perinouson.py' 
+  430  nano scripts/preprocess_causae.py
+  431  python '/home/bwang/histmed_rag/scripts/preprocess_causae_txt.py' 
+  432  wc -l corpus/processed/*.jsonl
+  433  python3 -c "
+  434  import json
+  435  with open('corpus/processed/suwen_chunks.jsonl') as f:
+  436      chunk = json.loads(f.readline())
+  437      print(json.dumps(chunk, indent=2, ensure_ascii=False))
+  438  "
+  439  python3 -c "
+  440  from huggingface_hub import snapshot_download
+  441  snapshot_download(
+  442      repo_id='BAAI/bge-m3',
+  443      local_dir='models/embeddings/bge-m3',
+  444      ignore_patterns=['*.msgpack', '*.h5']
+  445  )
+  446  print('Model saved to models/embeddings/bge-m3')
+  447  "
+  448  python3 -c "
+  449  from huggingface_hub import snapshot_download
+  450  snapshot_download(
+  451      repo_id='BAAI/bge-reranker-v2-m3',
+  452      local_dir='models/reranker/bge-reranker-v2-m3'
+  453  )
+  454  print('Reranker saved to models/reranker/bge-reranker-v2-m3')
+  455  "
+  456  curl -fsSL https://ollama.com/install.sh | sh
+  457  ollama serve &
+  458  curl http://localhost:11434/api/tags
+  459  ollama pull mixtral:8x7b-instruct-q4_0
+  460  ollama pull mixtral:8x7b-instruct-v0.1-q4_0
+  461  curl http://localhost:11434/api/tags
+  462  ollama run mixtral:8x7b-instruct-v0.1-q4_0 'What are the four humors in Hippocratic medicine?'
+  463  ollama pull mistral:7b-instruct-q4_0
+  464  ollama run mistral:7b-instruct-q4_0 'What are the four humors in Hippocratic medicine?'
+  465  cd ~/histmed_rag/docker
+  466  docker-compose up -d
+  467  docker-compose up -d
+  468  docker-compose up -d
+  469  docker-compose up -d
+  470  docker ps
+  471  curl http://localhost:6333/healthz
+  472  curl http://localhost:9200
+  473  nano /etc/elasticsearch/elasticsearch.yml
+  474  docker-compose up -d
+  475  curl http://localhost:9200
+  476  curl http://localhost:9200
+  477  [200~docker compose down~
+  478  docker compose down
+  479  docker-compose up -d
+  480  docker logs -f histmed_elasticsearch
+  481  curl http://localhost:9200
+  482  cd ..
+  483  nano scripts/setup_qdrant.py
+  484  cd docker/
+  485  sudo chown -R 1000:1000 ./qdrant_storage
+  486  cd ..
+  487  nano scripts/index_corpus.py
+  488  nano scripts/index_elasticsearch.py
+  489  nano scripts/index_elasticsearch.py
+  490  python scripts/setup_qdrant.py
+  491  python scripts/index_corpus.py
+  492  history > history_output.txt

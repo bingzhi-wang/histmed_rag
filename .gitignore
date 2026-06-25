@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+venv/
+env/
+.env
+
+# Models
+models/
+*.pkl
+*.pt
+*.h5
+
+# Data
+corpus/raw/
+corpus/processed/
+*.db
+*.sqlite3
+
+# Docker
+docker-data/
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
