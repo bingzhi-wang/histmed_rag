@@ -16,28 +16,26 @@ es = Elasticsearch('http://localhost:9200')
 INDEX_MAPPING = {
     'mappings': {
         'properties': {
-            'text': {'type': 'text', 'analyzer': 'standard'},
-            'chunk_id': {'type': 'keyword'},
-            'source_text': {'type': 'keyword'},
-            'language': {'type': 'keyword'},
-            'tradition': {'type': 'keyword'},
-            'date_approx': {'type': 'integer'},
-            'date_ref': {'type': 'keyword'},      # original value when not a clean int
-            'chapter_num': {'type': 'integer'},   # genuine numeric chapter, nullable
-            'chapter_ref': {'type': 'keyword'},   # raw citation/reference, never dropped
-            'section': {'type': 'text'},
+            'text':             {'type': 'text', 'analyzer': 'standard'},
+            'text_translation': {'type': 'text', 'analyzer': 'english'},   # NEW — English BM25
+            'chunk_id':         {'type': 'keyword'},
+            'source_text':      {'type': 'keyword'},
+            'source_urn':       {'type': 'keyword'},   # NEW — for Problem 2 citations
+            'language':         {'type': 'keyword'},
+            'tradition':        {'type': 'keyword'},
+            'date_approx':      {'type': 'integer'},
+            'date_ref':         {'type': 'keyword'},
+            'chapter_num':      {'type': 'integer'},
+            'chapter_ref':      {'type': 'keyword'},
+            'section':          {'type': 'text'},
+            'section_ref':      {'type': 'keyword'},    # NEW
         }
     },
     'settings': {
         'number_of_shards': 1,
         'number_of_replicas': 0,
-        # 'similarity' must be a nested object, not a dotted-string key.
         'similarity': {
-            'default': {
-                'type': 'BM25',
-                'k1': 1.5,
-                'b': 0.75
-            }
+            'default': {'type': 'BM25', 'k1': 1.5, 'b': 0.75}
         }
     }
 }

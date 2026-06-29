@@ -2,7 +2,7 @@
 # ── Edit these values to customize your system ──────────────────────
 
 # LLM (Ollama model name — must match what you pulled with 'ollama pull')
-MODEL_NAME = 'mistral:7b-instruct-q4_0'
+MODEL_NAME = 'qwen3:14b'
 
 # Embedding model
 EMBED_MODEL = 'BAAI/bge-m3'  # Or local path: 'models/embeddings/bge-m3'

@@ -1,89 +1,118 @@
 # Historical Medical RAG System
 ## Cross-Cultural Analysis of Ancient Medical Texts
 
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/)
 [![Docker](https://img.shields.io/badge/docker-required-2496ED.svg)](https://www.docker.com/)
+[![Ollama](https://img.shields.io/badge/ollama-qwen3%3A14b-000000.svg)](https://ollama.ai/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Ollama](https://img.shields.io/badge/ollama-supported-000000.svg)](https://ollama.ai/)
 
-A fully offline, agentic Retrieval-Augmented Generation (RAG) system for cross-cultural historical medical research. Compare ancient Greek, classical Chinese, and medieval European medical texts without any internet connection or API costs.
+A **fully offline, agentic** Retrieval-Augmented Generation system for comparative history of medicine. It lets three physicians — one Chinese, one Greek, one Medieval Latin, writing across roughly **1,500 years and three languages** — answer the same research question side by side, and it shows you exactly which passage every claim came from. No internet, no API keys, no cloud.
+
+---
 
 ## 📋 Table of Contents
-- [Overview](#overview)
-- [System Architecture](#system-architecture)
-- [The Three Corpus Texts](#the-three-corpus-texts)
+- [Why this exists](#why-this-exists)
+- [The Three Traditions](#the-three-traditions)
+- [How It Works](#how-it-works)
+- [What Makes It Different: Traceable Provenance](#what-makes-it-different-traceable-provenance)
 - [Hardware Requirements](#hardware-requirements)
 - [Installation](#installation)
 - [Quick Start](#quick-start)
-- [User Guide](#user-guide)
+- [Usage](#usage)
+- [Outputs: Traces & Answer Exports](#outputs-traces--answer-exports)
+- [Verify the Index](#verify-the-index)
 - [Project Structure](#project-structure)
-- [Technical Documentation](#technical-documentation)
+- [Technical Notes](#technical-notes)
+- [Troubleshooting](#troubleshooting)
+- [Citing the System](#citing-the-system)
 - [License](#license)
 
-## Overview
+---
 
-This system enables comparative analysis of three foundational medical texts:
-- **黄帝内经素問 (Huángdì Nèijīng Sùwèn)** - Classical Chinese medicine
-- **Περὶ Νούσων (Peri Nouson/De Morbis)** - Ancient Greek medicine
-- **Causae et Curae** - Medieval European medicine
+## Why this exists
 
-The system runs entirely on your local machine, providing:
-- 🔒 **Complete privacy** - No data leaves your computer
-- 💰 **Zero API costs** - All models run locally
-- 🌐 **No internet required** - Fully offline after setup
-- 🧠 **Intelligent agents** - LangGraph orchestrates complex research queries
+Comparative medical history is hard for an ordinary RAG system: the sources are in **Classical Chinese, Ancient Greek, and Medieval Latin**, the concepts don't map cleanly onto each other (*qì* is not *pneuma* is not *humores*), and a scholar needs to **trust every citation**. This system was built to solve exactly that — cross-lingual retrieval that actually surfaces the right tradition, grounded synthesis that refuses to invent, and a provenance trail you can audit line by line.
 
-## System Architecture
+- 🔒 **Complete privacy** — nothing leaves your machine.
+- 💰 **Zero API cost** — every model runs locally.
+- 🌐 **Offline after setup** — internet needed only to download texts and models once.
+- 🧠 **Agentic** — five LangGraph agents plan, retrieve, synthesize, verify, and cite.
+- 🔍 **Traceable** — every `[SOURCE N]` resolves to a real chunk, with original + translation, persisted per run.
+
+---
+
+## The Three Traditions
+
+| Text | Language / Period | Translation | Focus |
+|------|-------------------|-------------|-------|
+| **黄帝内经素問** *(Huángdì Nèijīng Sùwèn)* | Classical Chinese · ~300–100 BCE | LLM-translated → English | Qì, yin-yang, the five phases (wǔ xíng), organ–season correspondence, preventive seasonal medicine |
+| **Hippocrates — *On Ancient Medicine* & *Prognostic*** | Ancient Greek · ~420–350 BCE | Perseus parallel English | Humoral balance, heat/cold as pathogenic forces, the art of medicine, clinical prognosis |
+| **Causae et Curae** *(Hildegard von Bingen)* | Medieval Latin (OCR'd) · ~1150–1160 CE | LLM-translated → English | Humoral-cosmological disease, the four temperaments, bile and melancholy, remedies |
+
+> **Provenance note.** The Greek corpus comprises two Hippocratic works — *On Ancient Medicine* (`tlg0627.tlg001`) and *Prognostic* (`tlg0627.tlg003`) — taken from the Perseus Digital Library. An earlier file labelled *Peri Nouson / De Morbis* was found to actually contain the *Epidemics* and was removed. Greek English is used directly from Perseus; the Chinese and Latin English are machine translations and are marked as such in every citation.
+
+---
+
+## How It Works
+
+The pipeline is a compiled **LangGraph** state machine of five single-responsibility agents. Retrieval and synthesis operate on **English translations** of every passage, which is what makes cross-lingual search work: an English query reliably finds the relevant Chinese or Latin chunk.
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                    USER QUERY INPUT                         │
-└─────────────────────┬───────────────────────────────────────┘
-                      │
-┌─────────────────────▼───────────────────────────────────────┐
-│              QUERY ANALYSIS AGENT                           │
-│  - Term expansion across languages/periods                  │
-│  - Query refinement and decomposition                       │
-└─────────────────────┬───────────────────────────────────────┘
-                      │
-┌─────────────────────▼───────────────────────────────────────┐
-│              RETRIEVAL AGENT                                │
-│  ┌────────────────────────────────────────────────────┐     │
-│  │  Dense Vector Search (Qdrant + BGE-M3)            │     │
-│  │  Keyword Search (Elasticsearch BM25)              │     │
-│  │  Reciprocal Rank Fusion (RRF)                     │     │
-│  │  Cross-Encoder Reranking                          │     │
-│  └────────────────────────────────────────────────────┘     │
-└─────────────────────┬───────────────────────────────────────┘
-                      │
-┌─────────────────────▼───────────────────────────────────────┐
-│              SYNTHESIS AGENT                               │
-│  - Generates comparative analysis                         │
-│  - Cross-cultural medical insights                        │
-│  - Synthesizes findings across traditions                 │
-└─────────────────────┬───────────────────────────────────────┘
-                      │
-┌─────────────────────▼───────────────────────────────────────┐
-│              PROOFREADING AGENT                            │
-│  - Verifies claims against sources                         │
-│  - Checks accuracy of citations                            │
-│  - Ensures scholarly rigor                                 │
-└─────────────────────┬───────────────────────────────────────┘
-                      │
-┌─────────────────────▼───────────────────────────────────────┐
-│              CITATION AGENT                                │
-│  - Formats academic citations                              │
-│  - Provides full provenance metadata                       │
-└─────────────────────────────────────────────────────────────┘
+                          USER QUERY
+                              │
+                ┌─────────────▼─────────────┐
+                │   1. QUERY ANALYSIS       │  expand terms across traditions;
+                │      (JSON-mode LLM)      │  emit tradition/language/date filters
+                └─────────────┬─────────────┘
+                ┌─────────────▼─────────────┐
+                │   2. RETRIEVAL            │  Dense (Qdrant + BGE-M3)
+                │                           │  + BM25 (Elasticsearch)
+                │                           │  → RRF fusion → cross-encoder rerank
+                │                           │  → per-tradition diversification
+                └─────────────┬─────────────┘
+                ┌─────────────▼─────────────┐
+                │   3. SYNTHESIS            │  grounded comparative analysis;
+                │      (qwen3:14b)          │  cite every claim with [SOURCE N]
+                └─────────────┬─────────────┘
+                ┌─────────────▼─────────────┐
+                │   4. PROOFREADING         │  structural check (no LLM) +
+                │                           │  per-claim verification (LLM judge)
+                └─────────────┬─────────────┘
+                     needs more sources?
+                       │            │
+                   yes │            │ no
+          ┌────────────┘            └────────────┐
+          ▼ (back to Retrieval, max 2x)          ▼
+                                ┌─────────────────────────┐
+                                │   5. CITATION           │  academic citations from
+                                │                         │  metadata + original &
+                                │                         │  translation per source
+                                └────────────┬────────────┘
+                                             ▼
+                            Console answer · JSONL trace · Markdown export
 ```
 
-## The Three Corpus Texts
+**The agents**
 
-| Text | Language/Period | Focus |
-|------|----------------|-------|
-| **黄帝内经素問 (Huángdì Nèijīng Sùwèn)** | Classical Chinese ~300-100 BCE | Qi, five phases, yin-yang pathology, seasonal medicine |
-| **Περὶ Νούσων I–II (Peri Nouson/De Morbis)** | Ancient Greek ~420-370 BCE | Humoral theory, disease typology, physis, prognosis |
-| **Causae et Curae (Hildegard von Bingen)** | Medieval Latin ~1150-1160 CE | Humoral-cosmological disease, temperaments, remedies |
+1. **Query Analysis** — rewrites the query with cross-tradition equivalent terms and emits retrieval filters (relevant traditions, languages, optional date range).
+2. **Retrieval** — hybrid dense + sparse search fused by Reciprocal Rank Fusion, reranked by a cross-encoder, then **diversified**: near-duplicate passages are collapsed, each requested tradition is guaranteed a minimum number of slots (a *per-tradition floor*), and no single work may dominate (a *per-source cap*). This is what stops a comparative answer from being silently monopolised by one or two traditions.
+3. **Synthesis** — writes a grounded comparative analysis using only the retrieved passages, citing each claim with a positional `[SOURCE N]` marker and refusing to fill gaps from outside knowledge.
+4. **Proofreading** — a deterministic structural check (does every `[SOURCE N]` resolve to a real chunk?) plus an LLM judge that verifies each claim against the English translation it cites, flagging unsupported claims, misattribution, anachronism, and over-translation. A genuine recall gap can route back to Retrieval, capped at two corrective passes.
+5. **Citation** — formats per-tradition academic references from metadata and embeds the **original text and English translation** of every cited passage, so each citation is verifiable from the output alone.
+
+---
+
+## What Makes It Different: Traceable Provenance
+
+Most RAG systems hand you an answer and a vague list of sources. This one gives you a **complete, auditable chain** from claim to text:
+
+- **Positional citation resolution** — every `[SOURCE N]` in the prose is mapped back to a concrete `chunk_id`, `source_urn` (Perseus CTS where available), section, and tradition.
+- **Two-layer verification** — a deterministic integrity check guarantees no citation points at a non-existent source; an LLM judge checks that each cited passage actually supports its claim.
+- **Original + translation in every citation** — you see exactly what the Greek, Chinese, or Latin said, and its English rendering.
+- **Per-run JSONL traces** — query, expanded terms, every retrieved chunk with score, the draft, the final answer, resolved citations, and per-claim verifications, written to one timestamped file per run.
+- **Dated answer exports** — a clean, shareable Markdown answer stamped with the **date of input**.
+
+---
 
 ## Hardware Requirements
 
@@ -91,248 +120,249 @@ The system runs entirely on your local machine, providing:
 |-----------|---------|-------------|
 | **CPU** | 4-core modern CPU | 8-core modern CPU |
 | **RAM** | 16 GB | 32 GB |
-| **GPU** (optional) | NVIDIA GPU with 6GB+ VRAM | Speeds up inference |
+| **GPU** *(optional)* | — | NVIDIA GPU 12 GB+ VRAM (offloads qwen3:14b, large speedup) |
 | **Storage** | 50 GB free | 50 GB free |
-| **OS** | Ubuntu 20.04/22.04 LTS | Ubuntu 22.04 LTS |
+| **OS** | Ubuntu 20.04 / 22.04 LTS | Ubuntu 22.04 LTS |
 | **Python** | 3.10 or 3.11 | 3.11 |
-| **Docker** | Required | Required |
+| **Docker** | Required (Qdrant + Elasticsearch) | Required |
+
+The system is designed to run **CPU-only and fully offline**. A GPU is optional: with enough VRAM, Ollama offloads `qwen3:14b` and inference is markedly faster.
+
+---
 
 ## Installation
 
 ### Prerequisites
-Ensure you have Docker, Python 3.10/3.11, and Git installed.
+Docker, Python 3.10/3.11, and Git.
 
 ### Full Build Sequence
 
 ```bash
 # 1. System dependencies
 sudo apt update && sudo apt install -y build-essential git curl wget \
-  python3.11 python3.11-venv python3-pip default-jdk docker.io docker-compose
+  python3.11 python3.11-venv python3-pip default-jdk docker.io docker-compose-plugin
 
 # 2. Project setup
 cd ~/histmed_rag && python3.11 -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
 
-# 3. Download texts (requires internet, once only)
+# 3. Download source texts (internet required, once)
 python scripts/download_suwen.py
-cd corpus/raw/perinouson && wget [perseus URLs] && cd ../../..
+#   Hippocrates: place the Perseus TEI/parallel-English sources in corpus/raw/
+#   Causae et Curae: place the OCR'd Latin source in corpus/raw/
 
-# 4. Download models (requires internet, once only)
+# 4. Download models (internet required, once)
 python3 -c "from FlagEmbedding import BGEM3FlagModel; BGEM3FlagModel('BAAI/bge-m3')"
 python3 -c "from FlagEmbedding import FlagReranker; FlagReranker('BAAI/bge-reranker-v2-m3')"
-ollama pull mistral:7b-instruct-q4_0
+ollama pull qwen3:14b
 
-# 5. Preprocess corpus
-python scripts/preprocess_suwen.py
-python scripts/preprocess_perinouson.py
-python scripts/preprocess_causae.py
+# 5. Preprocess each corpus into corpus/processed/*.jsonl
+python scripts/preprocess_suwen.py          # → suwen_chunks.jsonl
+python scripts/preprocess_hippocrates.py    # → hippocrates_chunks.jsonl
+python scripts/preprocess_causae_txt.py     # → causaecurae_chunks.jsonl
 
-# 6. Start infrastructure
-cd docker && docker-compose up -d && cd ..
+# 6. Translate non-English chunks to English (one-time, idempotent, local LLM)
+python scripts/translate_chunks.py          # adds text_translation to Suwen & Causae
+
+# 7. Start infrastructure
+docker compose -f docker/docker-compose.yml up -d
 ollama serve &
-
-# 7. Index corpus
 python scripts/setup_qdrant.py
-python scripts/index_corpus.py
-python scripts/index_elasticsearch.py
 
-# 8. System is ready!
-python main.py
+# 8. Build the indexes (run in this order)
+python scripts/index_corpus.py              # Qdrant dense index (RECREATE=True)
+python scripts/index_elasticsearch.py       # Elasticsearch BM25 index
+
+# 9. Ready — see Quick Start
+./start.sh
 ```
+
+> **Pipeline order matters.** Preprocess → **translate** → index. Retrieval embeds and reranks on the English translation, so `translate_chunks.py` must run before `index_corpus.py`. If you re-translate, re-index both stores.
+
+---
 
 ## Quick Start
 
-### Step 1: Start the System
+The included **`start.sh`** brings everything up in the right order and waits for each service to be healthy before launching:
+
 ```bash
 cd ~/histmed_rag
+./start.sh                                   # interactive prompt
+./start.sh "How do the three traditions explain seasonal disease onset?"   # one-shot
+```
+
+`start.sh` will: activate the venv → start Qdrant + Elasticsearch → start Ollama if needed → wait for ports `6333`, `9200`, `11434` → ensure `qwen3:14b` is pulled → launch `main.py`.
+
+To run manually:
+
+```bash
 source venv/bin/activate
-docker-compose -f docker/docker-compose.yml up -d
+docker compose -f docker/docker-compose.yml up -d
 ollama serve &
+python main.py "Compare qì in Chinese medicine and the humoral balance in Greek medicine"
+```
+
+---
+
+## Usage
+
+**Command line**
+
+```bash
+python main.py "How do the three traditions explain the relationship between seasonal change and disease onset?"
+# or, with no argument, you'll be prompted to type a query
 python main.py
 ```
 
-### Step 2: Run Your First Query
+**From Python**
+
 ```python
-# Example query
-query = "Compare the concepts of 'qi' in Chinese medicine and 'pneuma' in Greek medicine"
-result = agent_chain.invoke({"query": query})
-print(result)
+from main import query
+
+answer = query("Compare the role of heat and cold in Greek and Chinese accounts of disease")
+print(answer)   # the final, cited, proofread synthesis
 ```
 
-### Step 3: Advanced Queries
-```python
-# Cultural comparison
-query = "How do Chinese five phases and Greek humoral theory approach seasonal diseases?"
+Each run prints the comparative answer with inline `[SOURCE N]` citations, a **References** section containing each source's original text and English translation, and a proofreading summary — then writes a trace and an answer export (below).
 
-# Specific text analysis
-query = "What does Causae et Curae say about the relationship between seasons and diseases?"
+**Query tips**
 
-# Cross-cultural synthesis
-query = "Compare diagnostic methods across all three medical traditions"
+- Be specific and comparative: *"How does **each** tradition explain epilepsy?"* beats *"epilepsy"*.
+- Use period vocabulary — *humors, qì, physis, temperaments, melancholy* — to anchor retrieval.
+- General/comparative queries automatically engage the per-tradition floor so all requested traditions are represented; a single-tradition query is hard-filtered to that tradition.
+
+---
+
+## Outputs: Traces & Answer Exports
+
+Every run produces two timestamped artifacts, both named by **date of input** (captured at submission, not completion):
+
+```
+logs/2026-06-28_190436_how-do-the-three-traditions_ccf2b265.jsonl   # machine-readable trace
+exports/2026-06-28_190436_how-do-the-three-traditions_ccf2b265.md   # human-readable answer
 ```
 
-## User Guide
+- **Trace (`logs/*.jsonl`)** — one complete JSON record per run: user + expanded query, every retrieved chunk with its rerank score and provenance, the synthesis draft, the final answer, resolved citations (with full original + translation), and per-claim verification results. One file per run, so no run is ever overwritten. Read them all with a glob:
 
-### Basic Usage Patterns
+  ```bash
+  # latest trace, cited sources only
+  python3 -c "import json,glob,os; f=max(glob.glob('logs/*.jsonl'),key=os.path.getmtime); r=json.loads(open(f).read()); print(f); print('cited:', r['cited_source_ns'])"
+  ```
 
-#### 1. Comparative Query
-```python
-response = system.query("Compare the treatment of fever in Chinese and Greek medicine")
-print(response["analysis"])
-print(response["citations"])
+- **Answer export (`exports/*.md`)** — a clean, shareable Markdown file: date of input, the query, and the full cited answer. The short id in the filename matches its trace.
+
+---
+
+## Verify the Index
+
+After indexing, confirm all three counts agree (≈ **1,224** chunks):
+
+```bash
+# 1. Source of truth — non-empty lines across the processed corpora
+cat corpus/processed/*.jsonl | grep -c .
+
+# 2. Qdrant dense vectors
+python3 -c "from qdrant_client import QdrantClient; print(QdrantClient(host='localhost',port=6333).count('histmed_corpus').count)"
+
+# 3. Elasticsearch documents
+curl -s localhost:9200/histmed_corpus/_count
 ```
 
-#### 2. Single Text Exploration
-```python
-response = system.query(
-    "Explain the concept of physis in Peri Nouson",
-    filter={"source": "perinouson"}
-)
-```
+If the JSONL count exceeds either index, an index run was incomplete or stale — re-run `index_corpus.py` then `index_elasticsearch.py`.
 
-#### 3. Cross-Cultural Synthesis
-```python
-response = system.query("Synthesize the role of the four elements in all three traditions")
-```
-
-### Query Tips
-
-1. **Be Specific** - "Compare lung diseases" vs "How do each tradition explain lung diseases?"
-2. **Use Medical Terminology** - "humors", "qi", "physis", "temperaments"
-3. **Request Citations** - Always verify claims against sources
-4. **Filter by Text** - Use `filter={"source": "text_name"}` for focused analysis
-
-### Example Use Cases
-
-| Use Case | Query Example | Expected Output |
-|----------|--------------|-----------------|
-| **Disease Comparison** | "How do the three traditions explain epilepsy?" | Cultural comparison with citations |
-| **Concept Analysis** | "What is the concept of 'balance' across all texts?" | Synthesis with textual evidence |
-| **Seasonal Medicine** | "Compare seasonal disease theories" | Parallel analysis with examples |
-| **Treatment Approaches** | "How do different traditions approach pneumonia?" | Comparative treatment methods |
+---
 
 ## Project Structure
 
 ```
 ~/histmed_rag/
-├── venv/                          # Python virtual environment
+├── venv/
 ├── corpus/
-│   ├── raw/
-│   │   ├── suwen/                 # Raw Suwen chapter files
-│   │   ├── perinouson/            # TEI-XML Greek files
-│   │   └── causaecurae/           # Latin source files
+│   ├── raw/                            # original source files (Suwen, Hippocrates TEI, Causae OCR)
 │   └── processed/
 │       ├── suwen_chunks.jsonl
-│       ├── perinouson_chunks.jsonl
+│       ├── hippocrates_chunks.jsonl
 │       └── causaecurae_chunks.jsonl
-├── models/
-│   ├── embeddings/bge-m3/         # BGE-M3 embedding model
-│   └── reranker/bge-reranker-v2-m3/
+├── models/                             # cached BGE-M3 + BGE-reranker-v2-m3
 ├── scripts/
 │   ├── download_suwen.py
 │   ├── preprocess_suwen.py
-│   ├── preprocess_perinouson.py
-│   ├── preprocess_causae.py
+│   ├── preprocess_hippocrates.py       # Greek + English section-aligned parser
+│   ├── preprocess_causae_txt.py
+│   ├── translate_chunks.py             # one-time local LLM translator (idempotent)
 │   ├── setup_qdrant.py
-│   ├── index_corpus.py
-│   ├── index_elasticsearch.py
-│   └── retrieval.py               # HybridRetriever class
+│   ├── index_corpus.py                 # Qdrant dense indexer
+│   ├── index_elasticsearch.py          # Elasticsearch BM25 indexer
+│   └── retrieval.py                    # HybridRetriever (dense + BM25 + RRF + rerank + diversify)
 ├── agents/
-│   ├── state.py                   # LangGraph state definition
-│   ├── nodes.py                   # All five agent functions
-│   └── graph.py                   # Compiled LangGraph graph
+│   ├── state.py                        # LangGraph AgentState (TypedDict)
+│   ├── nodes.py                        # the five agents + citation resolution/verification
+│   ├── graph.py                        # compiled LangGraph state machine
+│   ├── trace_logger.py                 # per-run JSONL provenance traces
+│   └── answer_exporter.py              # dated Markdown answer exports
 ├── docker/
-│   └── docker-compose.yml         # Qdrant + Elasticsearch
+│   └── docker-compose.yml              # Qdrant + Elasticsearch
 ├── config/
 │   └── settings.py
-├── logs/
-├── main.py                        # Entry point
-├── start.sh                       # System startup script
-└── requirements.txt
+├── logs/                               # one timestamped trace per run
+├── exports/                            # one timestamped answer per run
+├── main.py                             # entry point
+├── start.sh                            # startup orchestration
+├── requirements.txt
 └── README.md
 ```
 
-## Technical Documentation
+---
 
-### Core Components
+## Technical Notes
 
-#### 1. **BGE-M3 Embedding Model**
-- Multilingual support (Chinese, Greek, Latin, English)
-- Dense retrieval with 1024-dimension vectors
-- Runs locally on CPU/GPU
+**Embeddings — BGE-M3.** Multilingual dense vectors (1024-dim). Each chunk is embedded as *translation + original*, so English queries match a non-English corpus.
 
-#### 2. **Qdrant Vector Database**
-- Stores semantic embeddings
-- Fast approximate nearest neighbor search
-- Docker containerized for easy management
+**Vector store — Qdrant.** Cosine ANN search over the dense vectors; metadata filters on tradition, language, and numeric date. Stable, deterministic point IDs (`uuid5`) make re-indexing reproducible.
 
-#### 3. **Elasticsearch BM25**
-- Keyword-based retrieval
-- Complements semantic search
-- Hybrid retrieval improves accuracy
+**Keyword store — Elasticsearch.** BM25 (k1=1.5, b=0.75) over the English translation (boosted), original text, and section. Complements semantic search for exact terms and locators.
 
-#### 4. **Cross-Encoder Reranking**
-- BGE-reranker-v2-m3
-- Improves retrieval precision
-- Reranks top candidates
+**Fusion + rerank.** Dense and sparse result lists are merged by Reciprocal Rank Fusion, then a **BGE-reranker-v2-m3** cross-encoder rescores the pool against the English text. Final selection applies near-duplicate collapse, a per-tradition floor, and a per-source cap.
 
-#### 5. **Ollama + Mistral 7B**
-- Quantized language model
-- 7B parameters for fast inference
-- CPU-compatible with decent performance
+**Generation — Ollama + qwen3:14b.** A Qwen3-aware local call uses `num_ctx=16384`, strips the model's `<think>` reasoning from visible output, and constrains JSON-emitting agents to valid JSON. Runs CPU-only; offloads to GPU when available.
 
-#### 6. **LangGraph Agents**
-- State-machine based orchestration
-- Multi-step reasoning
-- Error handling and fallbacks
-
-### Performance Optimization
-
-1. **GPU Acceleration**
-   ```bash
-   # Enable GPU for embeddings
-   export CUDA_VISIBLE_DEVICES=0
-   python main.py --use_gpu
-   ```
-
-2. **Memory Optimization**
-   ```python
-   # Reduce batch size for memory-constrained systems
-   config = {"batch_size": 32, "chunk_size": 512}
-   ```
-
-3. **Faster Inference**
-   ```bash
-   # Use smaller model variant
-   ollama pull mistral:7b-instruct-q4_0
-   ```
-
-### Troubleshooting Guide
-
-| Issue | Solution |
-|-------|----------|
-| **Out of Memory** | Reduce batch size, use CPU-only mode |
-| **Docker fails to start** | Ensure Docker is running: `sudo systemctl start docker` |
-| **Ollama not responding** | Restart: `ollama serve &` |
-| **Slow retrieval** | Use keyword-only search: `search_type='keyword'` |
-| **No results found** | Broaden query or remove language filters |
-
-### Citing the System
-
-When using this system in academic research, please cite:
-
-```bibtex
-@software{histmed_rag,
-  author = {[Bingzhi Wang]},
-  title = {Historical Medical RAG: Cross-Cultural Analysis of Ancient Medical Texts},
-  year = {2026},
-  url = {https://github.com/bingzhi-wang/histmed_rag}
-}
-```
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+**Orchestration — LangGraph.** A typed `AgentState` is threaded through five nodes; the proofreader can conditionally route back to retrieval (capped at two passes) when a real recall gap is detected.
 
 ---
 
+## Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| **Connection refused (6333 / 9200)** | Services still starting. `start.sh` waits for them; if running manually, give Docker a moment after `up -d`. |
+| **Out of memory** | Lower `EMBED_BATCH_SIZE` in `index_corpus.py`; run qwen3:14b CPU-only; close other apps. |
+| **Docker won't start** | `sudo systemctl start docker` and confirm your user is in the `docker` group. |
+| **Ollama not responding** | `ollama serve &`, then `ollama list` to confirm `qwen3:14b` is present. |
+| **A tradition is missing from answers** | Expected behaviour is the per-tradition floor; check the latest trace's retrieved traditions. If truly absent, re-verify the index counts. |
+| **Index counts disagree** | Re-run `index_corpus.py` then `index_elasticsearch.py` (translate first if translations changed). |
+| **No results** | Broaden the query or remove date filters. |
+
+---
+
+## Citing the System
+
+```bibtex
+@software{histmed_rag,
+  author = {Bingzhi Wang},
+  title  = {Historical Medical RAG: Cross-Cultural Analysis of Ancient Medical Texts},
+  year   = {2026},
+  url    = {https://github.com/bingzhi-wang/histmed_rag}
+}
+```
+
+When quoting any passage surfaced by the system, cite the **original work** (and Perseus CTS URN for the Hippocratic texts) shown in the references — and remember that the Chinese and Latin English are machine translations.
+
+---
+
+## License
+
+MIT — see [LICENSE](LICENSE).
+
+---
+
+*Three traditions. Three languages. Fifteen centuries. One question at a time — and a citation for every word.*

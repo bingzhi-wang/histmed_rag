@@ -1,35 +1,27 @@
 # Python
+venv/
 __pycache__/
 *.pyc
-*.pyo
-*.pyd
-.Python
-venv/
-env/
-.env
 
-# Models
+# Models — large; users download these via the install steps, don't commit
 models/
-*.pkl
-*.pt
-*.h5
 
-# Data
-corpus/raw/
-corpus/processed/
-*.db
-*.sqlite3
-
-# Docker
-docker-data/
+# Runtime outputs — generated per run
+logs/
+exports/
+test_runs/
 *.log
 
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
+# Docker data volumes (Qdrant / Elasticsearch indexes)
+docker/qdrant_data/
+docker/es_data/
 
-# OS
+# OS / editor
 .DS_Store
-Thumbs.db
+.idea/
+.vscode/
+
+# Corpus raw sources — uncomment if large or license-restricted.
+# Keep corpus/processed/*.jsonl committed so others can index without
+# re-downloading and re-translating.
+# corpus/raw/
