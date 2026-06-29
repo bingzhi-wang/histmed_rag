@@ -1,6 +1,6 @@
 # Historical Medical RAG
 
-*Three physicians — Chinese, Greek, and Medieval Latin — writing across 1,500 years and three languages, answering the same question side by side. With a citation for every word, and the honesty to say when a text stays silent.*
+*Three physicians — Chinese, Greek, and Medieval Latin — writing across 1,500 years and three languages, answering the same question side by side.*
 
 A fully offline research tool for the comparative history of medicine. Ask one question; read how three ancient traditions answer it, each grounded in its own sources. No internet, no API keys, no cloud.
 
@@ -20,8 +20,6 @@ A fully offline research tool for the comparative history of medicine. Ask one q
 - **Knows when to stop.** If the texts don't address something, it says so plainly instead of inventing an answer.
 
 ## What it can't do (yet)
-
-Stated openly, because trustworthy tools name their edges:
 
 - **Date filters are unreliable.** "Sources after 1000 CE" won't reliably narrow to the medieval text.
 - **Single-text isolation can leak.** A query meant for one tradition may still surface a passage from another.
