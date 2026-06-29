@@ -15,6 +15,7 @@ A **fully offline, agentic** Retrieval-Augmented Generation system for comparati
 - [The Three Traditions](#the-three-traditions)
 - [How It Works](#how-it-works)
 - [What Makes It Different: Traceable Provenance](#what-makes-it-different-traceable-provenance)
+- [Example Run & Results](#example-run--results)
 - [Hardware Requirements](#hardware-requirements)
 - [Installation](#installation)
 - [Quick Start](#quick-start)
@@ -111,6 +112,78 @@ Most RAG systems hand you an answer and a vague list of sources. This one gives 
 - **Original + translation in every citation** — you see exactly what the Greek, Chinese, or Latin said, and its English rendering.
 - **Per-run JSONL traces** — query, expanded terms, every retrieved chunk with score, the draft, the final answer, resolved citations, and per-claim verifications, written to one timestamped file per run.
 - **Dated answer exports** — a clean, shareable Markdown answer stamped with the **date of input**.
+
+---
+
+## Example Run & Results
+
+The repository ships a reproducible probe suite — **16 questions** designed to test
+the system's capabilities *and its limits*, because a grounded system has to know
+when to decline. Run it yourself:
+
+```bash
+./run_test_suite.sh --list     # preview the questions
+./run_test_suite.sh            # full battery (~20–25 min on GPU)
+./run_test_suite.sh 7 8 12     # spot-check just the limit tests
+```
+
+Each run writes a trace, an answer export, and a `test_runs/<timestamp>/summary.tsv`.
+The results below are from a sample run (2026-06-29, qwen3:14b, RTX 4070 Ti SUPER).
+They are reported **honestly** — including what the system got wrong — because the
+whole point of this project is provenance you can trust.
+
+### What the run validates
+
+- **Cross-lingual retrieval works.** Every comparative query retrieved relevant
+  passages from all three traditions; a query written **entirely in Chinese**
+  (黄帝内经…) still retrieved Suwen and produced a cited answer.
+- **The per-tradition diversification floor holds.** All three traditions appeared
+  in the retrieved set for every comparative question, and the three-way synthesis
+  cited sources spread across all of them — the behaviour the floor was built to
+  guarantee.
+- **The self-correction loop fires.** The Chinese-language query triggered a second
+  retrieval pass (`iterations = 2`) when the proofreader signalled a gap.
+- **Near-duplicate collapse works.** The heavily-chunked *On Ancient Medicine* query
+  cited only two distinct sources — no repeated-section pile-up.
+- **The proofreader is not a rubber stamp.** It returned **not-passed on 4 of 16
+  runs**, flagging weak or unsupported synthesis rather than approving everything —
+  the verification layer doing its job.
+
+### Selected results
+
+| # | Probe | Retrieved | Cited | Proofread | Reading |
+|---|-------|-----------|-------|-----------|---------|
+| 3 | Causae on its strong vocabulary | all 3 | 5 sources | passed | Causae retrieved and cited richly — the previously-crowded-out tradition surfaces well |
+| 5 | Three-tradition seasonal synthesis | all 3 | 7 sources | passed | Floor working; balanced citation across traditions |
+| 6 | Term fidelity (qì / physis / viriditas) | all 3 | 7 sources | passed | Original-language terms attributed per tradition |
+| 7 | **Limit:** antibiotics (absent) | all 3 | 4 sources | passed | Grounds against what *is* present to establish the gap (confirm wording in answer file) |
+| 8 | **Limit:** microscope (anachronism) | all 3 | all 12 | passed | ⚠ cited every source — inspect the answer; possible over-citation |
+| 11 | **Limit:** blood circulation (anachronism) | all 3 | 5 sources | passed | Confirm it does not project Harvey onto the texts |
+| 13 | Causae seasonal/cosmological | all 3 | 0 sources | not passed | Honest "too thin" — no citations produced; structural check flagged it |
+| 14 | Duplicate-section stress (OAM) | all 3 | 2 sources | passed | Dedup effective |
+| 15 | Non-English (Chinese) query | all 3 | 5 sources | passed (2 iters) | Multilingual input + slug fallback both work |
+
+### Known limitations surfaced by the run
+
+Documented openly so users know the edges:
+
+- **Temporal filtering is unreliable (#12).** A query restricted to "sources after
+  1000 CE" should have narrowed to *Causae et Curae* alone, but all three traditions
+  were still retrieved — the query analyser did not convert the phrase into a numeric
+  date filter. Date-scoped queries should not be relied on yet.
+- **Single-tradition isolation can leak (#1).** A Suwen-only query admitted a
+  medieval passage, because the keyword (BM25) path is not tradition-filtered the way
+  the dense path is. The final answer still focused on Suwen, but retrieval was not
+  cleanly isolated.
+- **Anachronism handling needs answer-level review (#8, #11).** The structured signals
+  look reasonable, but confirming that the system *names the anachronism and declines*
+  — rather than answering around it — requires reading the per-question answer files in
+  `test_runs/<timestamp>/`.
+
+> **On reproducibility:** qwen3:14b is non-deterministic, so exact citations and
+> pass/fail will vary between runs. The qualitative behaviour — correct cross-lingual
+> retrieval, balanced traditions, an active proofreader, and the limitations above —
+> should reproduce.
 
 ---
 
